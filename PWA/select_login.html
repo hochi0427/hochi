@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <link rel="manifest" href="manifest.json">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-storage.js"></script>
+    <style>
+        .ven {
+            text-align: center;
+        }
+
+        .box button {
+            border: 0;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            font-size: 15px;
+            border: 2px solid none;
+            padding: 14px 40px;
+            outline: none;
+            color: #f1f3f2;
+            border-radius: 24px;
+            transition: 0.25s;
+            cursor: pointer;
+            background: rgb(97, 122, 132, 0.6);
+        }
+
+        .BOX{
+            width: 300px;
+            height: 300px;
+            border: 5px;
+            
+            position: absolute;
+            left:50%;
+            top:40%;
+            
+            margin-top: -150px;
+            margin-left: -150px;
+        }
+        
+    </style>
+</head>
+
+<body style="background-color:#c2d3da;">
+    <div class="BOX">
+        <div class="ven">
+            <img src="images/WeVen3.png" width="150">
+        </div>
+
+        <div class="box">
+            <button value="login" style="width: 60%"><a href="login.html" style="text-decoration: none;color:#fff;">L o g i n</a></button>
+            <button href="" name="facebook" value="facebook" style="width: 60%">F a c e b o o k</button>
+            <button name="google" value="google" style="width: 60%" onclick="googleSignin()">G o o g l e</button>
+            
+        </div>
+        <a href="register.html" style="position: relative;left: 35%;font-family: 微軟正黑體;color: #617a84;text-decoration: none;font-weight: 700;">還沒註冊嗎 ?</a>
+    </div>
+    <!-- <script src="/assets/js/log.js"></script> -->
+    <script>
+        // Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyB69foqqpBUbY5kKfy-5hSHiwYjbNLC97g",
+    authDomain: "venology-b1be7.firebaseapp.com",
+    databaseURL: "https://venology-b1be7.firebaseio.com",
+    projectId: "venology-b1be7",
+    storageBucket: "venology-b1be7.appspot.com",
+    messagingSenderId: "392313574771",
+    appId: "1:392313574771:web:185217b27f7dfeb9a9a106",
+    measurementId: "G-FKK9HFPBGX"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  googleSignin=()=>{
+      base_proveider = new firebase.auth.GoogleAuthProvider()
+      firebase.auth().signInWithPopup(base_proveider).then(function(result){
+          console.log(result)
+          console.log("成功連結Google")
+          window.location = "map.html";
+      }).catch(function(err){
+          console.log(err)
+          console.log("失敗")
+      })
+  }
+    </script>
+</body>
+
+</html>

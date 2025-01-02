@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Venology</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
+
+  <link rel="manifest" href="manifest.json" />
+  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+ https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-analytics.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+
+  <style>
+    h2 {
+      font-family: 微軟正黑體;
+      color: #617a84;
+    }
+
+    #dots {
+      text-align: center;
+    }
+
+    table {
+      height: 200px;
+      text-align: center;
+      font-family: 微軟正黑體;
+      font-weight: 800;
+    }
+
+    h3 {
+      font-family: 微軟正黑體;
+      color: #617a84;
+      font-size: large;
+      font-weight: 1000;
+    }
+
+    h4 {
+      font-family: 微軟正黑體;
+    }
+
+    h5 {
+      font-size: medium;
+      font-family: 微軟正黑體;
+    }
+
+    input {
+      width: 150px;
+      padding: 2px 15px;
+      background: rgb(194, 211, 218, 0.6);
+      border: 2px solid #617a84;
+      cursor: pointer;
+      -webkit-border-radius: 8px;
+      border-radius: 8px;
+      font-family: 微軟正黑體;
+      font-size: medium;
+    }
+
+    button {
+      font-family: 微軟正黑體;
+      border: 0;
+      background: none;
+      display: block;
+      margin: 25px auto;
+      text-align: center;
+      border: 2px solid none;
+      padding: 10px 40px;
+      outline: none;
+      color: #f1f3f2;
+      border-radius: 30px;
+      transition: 0.25s;
+      cursor: pointer;
+      background: #617a84;
+    }
+  </style>
+</head>
+
+<body class="is-preload">
+  <!-- Header -->
+  <div id="header">
+    <div class="top">
+      <!-- Logo -->
+      <div id="logo">
+        <span class="image"><img src="images/userpic.png" style="width: 65px" /></span>
+        <h1 id="title"></h1>
+        <p id="userpp"></p>
+      </div>
+
+      <!-- Nav -->
+      <script type="text/javascript" src="/assets/js/nav.js"></script>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div id="main">
+    <div style="height: 0px;">
+      <a href="members.html" style="text-decoration: none;">
+        <i id="arrow" class="fas fa-arrow-left" style="font-size: 30px; margin-top: 10px; margin-left: 10px;"></i></a>
+    </div>
+    <!-- Contact -->
+    <section id="points">
+      <div class="container">
+        <header>
+          <h2>Points</h2>
+        </header>
+        <section id="dots" style="width: 100%;">
+          <table>
+            <tr>
+              <td colspan="2">
+                <h3>您的點數：20000&nbsp;&nbsp;&nbsp;您的購物金：50</h3>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="height: 200px;">
+                <i class="fas fa-qrcode fa-8x"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h5>2020/6/30到期點數</h5>
+                <h4>500</h4>
+              </td>
+              <td>
+                <h5>2020/12/31到期點數</h5>
+                <h4>1500</h4>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                購物金兌換<h5>100點可兌換成1購物金</h5>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <input type="text" placeholder="輸入點數" />&nbsp;&nbsp;<i style="color: #617a84;"
+                  class="fas fa-arrow-right"></i>&nbsp;&nbsp;<input type="text" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <button type="submit">兌換</button>
+              </td>
+            </tr>
+          </table>
+        </section>
+      </div>
+    </section>
+  </div>
+</body>
+
+</html>

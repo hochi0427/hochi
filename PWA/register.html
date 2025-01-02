@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--
+ Prologue by HTML5 UP
+ html5up.net | @ajlkn
+ Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Register</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+  <link rel="manifest" href="manifest.json" />
+
+  <style>
+    hr.style-one {
+      border: 0;
+      height: 2px;
+      background-image: linear-gradient(to right,
+          rgba(0, 0, 0, 0),
+          rgb(87, 71, 59),
+          rgba(0, 0, 0, 0));
+    }
+  </style>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+</head>
+<!-- Main -->
+
+<body>
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyB69foqqpBUbY5kKfy-5hSHiwYjbNLC97g",
+      authDomain: "venology-b1be7.firebaseapp.com",
+      databaseURL: "https://venology-b1be7.firebaseio.com",
+      projectId: "venology-b1be7",
+      storageBucket: "venology-b1be7.appspot.com",
+      messagingSenderId: "392313574771",
+      appId: "1:392313574771:web:185217b27f7dfeb9a9a106",
+      measurementId: "G-FKK9HFPBGX"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+
+  <section>
+    <div style="height: 0px;">
+      <a href="select_login.html" style="text-decoration: none;">
+        <i id="arrow" class="fas fa-arrow-left" style="font-size: 30px; margin-top: 10px; margin-left: 10px; color: #a58f7f;"></i></a>
+    </div>
+    <div class="reg">
+      <h1>R e g i s t e r .</h1>
+      <input type="text" id="username" value="" placeholder="姓名" required />
+      <input type="email" id="email" placeholder="帳號" required />
+      <input type="password" id="password" placeholder="密碼" required />
+      <!-- onkeyup一放開鍵盤就會顯示狀態 -->
+      <input type="password" id="password2" onkeyup="validate()" placeholder="確認密碼" required />
+      <p style="font-size: 12px;" id="tishi"></p>
+      <input type="tel" id="phone" value="" placeholder="電話號碼" required />
+      <input type="date" id="birthdate" value="" placeholder="出生日期" required />
+      <hr class="style-one" />
+      <p id="message" style="color: rgb(87, 71, 59);"></p>
+      <input type="submit" id="submit" value="Register" />
+    </div>
+  </section>
+  <script>
+    var db = firebase.database();
+
+
+
+    //檢查密碼&確認密碼是否相同
+    function validate() {
+      //onkeyup觸動此function
+      var pwd1 = document.getElementById("password").value;
+      var pwd2 = document.getElementById("password2").value;
+      //設定變數給password
+
+      //如果密碼&確認密碼相同，狀態會顯示在id=tishi那行p中，submit可以使用
+      if (pwd1 == pwd2) {
+        document.getElementById("tishi").innerHTML =
+          "<font color='green'>○密碼符合</font>";
+
+        document.getElementById("submit").disabled = false;
+      } else {
+        //如果密碼&確認密碼不相同，狀態會顯示在id=tishi那行p中，submit無法使用
+        document.getElementById("tishi").innerHTML =
+          "<font color='red'>×密碼不符合</font>";
+
+        document.getElementById("submit").disabled = true;
+      }
+    }
+    // 綁定註冊按鈕的點擊事件
+    submit.addEventListener("click", () => {
+      //點擊註冊按鈕時，紀錄使用者輸入的帳號密碼、姓名、電話、生日
+      //設定變數抓取input裡面value的值
+      let user = {
+        name: username.value,
+        email: email.value,
+        password: password.value,
+        password2: password2.value,
+        phone: phone.value,
+        birthdate: birthdate.value,
+      };
+      //當使用者都有填入資料
+      if (user.name != "" && user.phone != "" && user.birthdate != "") {
+        // 透過 auth().createUserWithEmailAndPassword 建立使用者
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(user.email, user.password)
+          .then((u) => {
+            // 取得註冊當下的時間
+            let date = new Date();//利用Date()抓時間
+            let now = date.getTime();
+
+            var uid = firebase.auth().currentUser.uid;
+            //設uid為當前註冊者uid的變數
+            //記錄相關資訊到 firebase realtime database
+            db.ref("user/" + uid)//設置uid為user的子層
+              //要用set,不能用push，因為push會有亂碼
+              .set({
+                username: user.name,
+                email: user.email,
+                password: user.password,
+                phone: user.phone,
+                birthdate: user.birthdate,
+              })
+              .then(() => {
+                // 儲存成功後顯示訊息
+                message.innerHTML = "User created successfully";
+                window.location = "map.html";
+              });
+          })
+          .catch((err) => {
+            // 註冊失敗時顯示錯誤訊息
+            message.innerHTML = err.message;
+          });
+      } else {
+        message.innerHTML = "請填寫完整";
+      }
+
+    });
+  </script>
+</body>
+
+</html>

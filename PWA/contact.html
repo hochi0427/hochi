@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Venology</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
+
+  <link rel="manifest" href="manifest.json" />
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-storage.js"></script>
+
+  <style>
+    h2 {
+      font-family: 微軟正黑體;
+      color: #617a84;
+    }
+
+    p {
+      font-family: 微軟正黑體;
+      font-size: 14px;
+      color: rgba(97, 122, 132, 0.8);
+    }
+
+    form textarea {
+      background: rgb(194, 211, 218, 0.6);
+
+      resize: none;
+    }
+
+    .alert {
+      font-family: 微軟正黑體;
+      text-align: center;
+      padding: 1px;
+      background: #79c879ad;
+      color: #fff;
+      margin-bottom: 5px;
+      margin-top: -30px;
+      font-size: 15px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    label.upload-group {
+      font-family: 微軟正黑體;
+      background: none;
+      display: block;
+      margin: 0px auto;
+      text-align: center;
+      font-size: 15px;
+      border: 2px solid none;
+      padding: 7px 20px;
+      outline: none;
+      color: #f1f3f2;
+      border-radius: 30px;
+      transition: 0.25s;
+      cursor: pointer;
+      background: rgb(97, 122, 132, 0.6);
+    }
+
+    input#file {
+      width: 0.1px;
+      height: 0.1px;
+      position: absolute;
+      z-index: -1;
+    }
+
+    #uploadButton {
+      font-family: 微軟正黑體;
+      border: 0;
+      display: block;
+      margin: 0px auto;
+      text-align: center;
+      font-size: 15px;
+      border: 2px solid none;
+      padding: 13px 50px;
+      outline: none;
+      color: #f1f3f2;
+      border-radius: 30px;
+      cursor: pointer;
+      background: rgb(97, 122, 132, 0.6);
+    }
+  </style>
+</head>
+
+<body class="is-preload">
+  <!-- Header -->
+  <div id="header">
+    <div class="top">
+      <!-- Logo -->
+      <div id="logo">
+        <span class="image"><img src="images/userpic.png" style="width: 65px" /></span>
+        <h1 id="title"></h1>
+        <p id="userpp"></p>
+      </div>
+      <!-- Nav -->
+      <script type="text/javascript" src="/assets/js/nav.js"></script>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div id="main">
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <h2>Contact Us</h2>
+        <p>請簡單描述您的意見與回饋，提供我們作為優化參考</p>
+        <div class="alert">成功送出</div>
+        <form id="contactForm">
+          <div class="row">
+            <div class="col-12">
+              <textarea name="message" id="message" placeholder="Message" required></textarea>
+            </div>
+            <div class="col-6">
+              <!--上傳圖片的按鈕-->
+              <!--multiple_上傳多個檔案 accept_限制上傳類型-->
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+              <label class="upload-group"><i class="fas fa-file-image" style="font-size: 20px;"></i>
+                選擇圖片
+                <input class="upload-group" id="file" type="file" accept="image/*" />
+              </label>
+            </div>
+            <div class="col-6">
+              <img id="pic" width="100px" height="100px" />
+
+              <script>
+                //如果他有選擇到檔案的話會被放在input.files裡面
+                function readURL(input) {//裡面的input 就是我們丟進去的this，也就是<input type="file">
+                  if (input.files && input.files[0]) {
+                    //查看是否有檔案
+                    //input.files[0]→因為單選的關係，所以有檔案一定是在第0個
+
+                    //預覽功能，此為JavaScript預設提供的Object
+                    //https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                      $("#pic").attr("src", e.target.result);
+                    };
+                    //onload事件讀出來的會是一個接近二進位檔案"e.target.result",可以直接給<img>,所以這邊直接改變img的src就可以了
+
+                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+                  }
+                }
+
+                $("#file").change(function () {//當檔案改變後
+                  readURL(this); //this代表<input id = "imgInp">
+                });
+
+                  //清空預覽得圖片
+                  // $("#pic").empty();
+              </script>
+            </div>
+            <div class="col-12" id="box">
+              <button type="submit" id="uploadButton" onclick="uploadFile()">
+                <i class="fas fa-envelope"></i>&nbsp;送出
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <script type="text/javascript" src="/assets/js/script.js"></script>
+  <script type="text/javascript" src="/assets/js/form.js"></script>
+</body>
+
+</html>

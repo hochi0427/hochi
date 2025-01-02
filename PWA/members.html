@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!--
+ Prologue by HTML5 UP
+ html5up.net | @ajlkn
+ Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Venology</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
+
+  <link rel="manifest" href="manifest.json" />
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+ https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-analytics.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+  <style>
+    h2 {
+      font-family: 微軟正黑體;
+      color: #617a84;
+      font-size: x-large;
+      font-weight: 800;
+    }
+
+    h3 {
+      font-family: 微軟正黑體;
+      color: #617a84;
+      font-size: large;
+    }
+
+    .information {
+      background-color: rgba(194, 204, 218);
+      text-align: center;
+      width: auto;
+      height: 230px;
+      margin-top: 0px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      /* 當內部有 <div> 使用 float 的時候，父層的 <div> 高度會壞掉 */
+      /* 使用 overflow:hidden; 是最簡單破解這個問題的方法 */
+    }
+
+    i {
+      font-size: 120px;
+    }
+
+    p {
+      font-family: 微軟正黑體;
+      font-size: large
+    }
+
+
+    .ss .e {
+      position: relative;
+      top: 20px;
+      text-align: center;
+      vertical-align: middle;
+      border-color: inherit;
+      height: 100px;
+      width: 50%;
+    }
+
+    .ss button {
+      border: 0;
+      background: none;
+      display: block;
+      margin: 25px auto;
+      text-align: center;
+
+      border: 2px solid none;
+      padding: 20px 33px;
+      outline: none;
+      color: #f1f3f2;
+      border-radius: 30px;
+      transition: 0.25s;
+      cursor: pointer;
+      background: rgb(97, 122, 132, 0.4);
+    }
+
+    a {
+      font-family: 微軟正黑體;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body class="is-preload" style="background-color: rgba(194, 204, 218, 0.2);">
+  <!-- Header -->
+  <div id="header">
+    <div class="top">
+      <!-- Logo -->
+      <div id="logo">
+        <span class="image"><img src="images/userpic.png" style="width: 65px" /></span>
+        <h1 id="title"></h1>
+        <p id="userpp"></p>
+      </div>
+
+      <!-- Nav -->
+      <script type="text/javascript" src="/assets/js/nav.js"></script>
+    </div>
+  </div>
+  <!--Main-->
+  <div id="main">
+    <!--會員上面藍框-->
+    <div class="information">
+      <table style="text-align:center;height: 230px;">
+        <tr>
+          <td style="width: 30%;vertical-align: bottom;" rowspan="2">
+            <img src="images/userpic.png" style="width: 130px">
+          </td>
+          <td style="text-align: left;vertical-align: bottom; height: 65%;">
+            <h2 id="username"></h2>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">
+            <h3 id="email"></h3>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!--會員選單-->
+
+    <table class="ss">
+      <tr>
+        <td class="e"><button value=""><a href="payment.html" style="font-size: 15px;font-weight: 600;"><i
+                class="fas fa-credit-card fa-1x"></i>&nbsp;付款方式</a></button></td>
+        <td class="e"><button value=""><a href="record.html" style="font-size: 15px;font-weight: 600;"><i
+                class="fas fa-money-check-alt fa-1x"></i>&nbsp;消費紀錄</a></button></td>
+      </tr>
+      <tr>
+        <td class="e"><button value=""><a href="alert.html" style="font-size: 15px;font-weight: 600;"><i
+                class="fas fa-inbox fa-1x"></i>&nbsp;個人訊息</a></button></td>
+        </td>
+        <td class="e"><button value=""><a href="identity.html" style="font-size: 15px;font-weight: 600;"><i
+                class="fas fa-id-badge fa-1x"></i>&nbsp;會員資料</a></button></td>
+        </td>
+      </tr>
+      <tr>
+        <td class="e"><button value=""><a href="points.html" style="font-size: 15px;font-weight: 600;"><i
+                class="fas fa-coins fa-1x"></i>&nbsp;點數專區</a></button></td>
+        </td>
+        <td class="e"><button value=""><a href="" style="font-size: 15px;font-weight: 600;"><i
+                class="fas fa-american-sign-language-interpreting fa-1x"></i>&nbsp;敬請期待</a></button></td>
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+
+  <script>
+    auth.onAuthStateChanged(function (user) {//查看帳號狀態
+
+      var username = document.getElementById("username");//設定id是username的值為變數"username"
+      var email = document.getElementById("email");//設定id是email的值為變數"email"
+
+      var user = firebase.auth().currentUser;//設user為當前登入者Auth的變數
+
+      var db = firebase.database();//連結資料庫
+      var URef = db.ref("user/" + user.uid);//資料庫路徑，user.uid為Auth裡面的uid
+      URef.once("value").then(function (snapshot) {
+        //once取得最新資料
+        //設snapshot為一個參數，用來接收資料庫取出來的值
+        let userData = snapshot.val()//要取得裡面的值可以使用 val() 方法
+
+        username.innerHTML = userData.username;//顯示資料庫username的值在id為username的地方
+        email.innerHTML = userData.email;//顯示資料庫email的值在id為email的地方
+
+      });
+    });
+  </script>
+
+  <!-- Scripts -->
+  <script type="text/javascript" src="/assets/js/script.js"></script>
+</body>
+
+</html>

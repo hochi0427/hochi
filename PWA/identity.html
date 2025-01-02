@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<!--
+ Prologue by HTML5 UP
+ html5up.net | @ajlkn
+ Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Venology</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
+
+  <link rel="manifest" href="manifest.json" />
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+ https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+
+  <style>
+    h2 {
+      font-family: 微軟正黑體;
+      color: #617a84;
+      font-size: x-large;
+      font-weight: 800;
+    }
+
+    .information {
+      background-color: rgba(194, 204, 218);
+      text-align: center;
+      width: auto;
+      height: 240px;
+      margin-top: 0px;
+      overflow: hidden;
+      /* 當內部有 <div> 使用 float 的時候，父層的 <div> 高度會壞掉 */
+      /* 使用 overflow:hidden; 是最簡單破解這個問題的方法 */
+    }
+
+    table {
+      height: 0px;
+    }
+
+
+    h3 {
+      font-family: 微軟正黑體;
+      font-weight: 700;
+      font-size: 18px;
+      color: #617a84;
+    }
+
+    h4 {
+      font-family: 微軟正黑體;
+      font-size: 16px;
+    }
+
+    td {
+      vertical-align: middle;
+
+    }
+
+    input {
+      font-family: 微軟正黑體;
+      text-align: center;
+      border: 1px solid #617a84;
+      color: black;
+      border-radius: 10px;
+      font-size: 17px;
+      width: 250px;
+    }
+
+    #updateBtn {
+      border: 0;
+      background: none;
+      display: block;
+      margin: 20px auto;
+      text-align: center;
+      font-size: 15px;
+      border: 2px solid none;
+      padding: 14px 40px;
+      outline: none;
+      color: #f1f3f2;
+      border-radius: 24px;
+      transition: 0.25s;
+      cursor: pointer;
+      background: rgb(97, 122, 132, 0.6);
+      font-family: 微軟正黑體;
+
+    }
+
+    #Udelete {
+      border: 0;
+      background: none;
+      display: block;
+      margin: 20px auto;
+      text-align: center;
+      font-size: 15px;
+      border: 2px solid none;
+      padding: 14px 28px;
+      outline: none;
+      color: #f1f3f2;
+      border-radius: 24px;
+      transition: 0.25s;
+      cursor: pointer;
+      background: rgb(247, 29, 29, 0.5);
+      font-family: 微軟正黑體;
+
+    }
+
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .8);
+    }
+
+    .lightbox_table {
+      width: 100%;
+      height: 100%;
+    }
+
+    .lightbox_table_cell {
+      vertical-align: middle;
+    }
+
+    #lightbox_content {
+      width: 90%;
+      background-color: white;
+      border: 0px;
+    }
+  </style>
+</head>
+
+<body class="is-preload" style="background-color: rgba(194, 204, 218, 0.4);">
+  <!-- Header -->
+  <div id="header">
+    <div class="top">
+      <!-- Logo -->
+      <div id="logo">
+        <span class="image"><img src="images/userpic.png" style="width: 65px" /></span>
+        <h1 id="title"></h1>
+        <p id="userpp"></p>
+      </div>
+
+      <!-- Nav -->
+      <script type="text/javascript" src="/assets/js/nav.js"></script>
+
+    </div>
+  </div>
+
+  </div>
+  <!-- Main -->
+  <div id="main">
+    
+    <!-- Contact -->
+    <!--會員上面藍框-->
+    <div class="information">
+      <div style="width: 50px;height: 10px;">
+        <a href="members.html" style="text-decoration: none;">
+          <i id="arrow" class="fas fa-arrow-left" style="font-size: 30px; margin-top: 10px;"></i>
+        </a>
+      </div>
+      <img src="images/userpic.png" style="width: 130px;margin-top: 40px;">
+      <h2 id="email"></h2>
+    </div>
+    <div id="userinfo" style="background-color: rgba(239, 242, 245, 0.05);">
+
+    </div>
+    <!--修改帳號-->
+    <button id="updateBtn"><i id="arrow" class="fas fa-edit"></i> 修改</button>
+    <!--刪除帳號-->
+    <button id="Udelete"><i id="del" class="fas fa-trash-alt"></i> 刪除帳號</button>
+ 
+  </div>
+
+  <script>
+    //更新帳號
+    auth.onAuthStateChanged(function (user) {//查看帳號狀態
+      var user = firebase.auth().currentUser;//設user為當前登入者Auth的變數    
+      var db = firebase.database();//連結資料庫
+
+      updateBtn.addEventListener('click', (e) => {//點擊觸發updateBtn
+        e.preventDefault();//阻止瀏覽器的預設行為
+
+        const newdata = {
+          phone: phone.value,
+          birthdate: birthdate.value,
+          username: username.value
+        }//newdata為新值的變數
+        db.ref("user/" + user.uid).update(newdata);//update就是更新他，放入變數newdata
+        console.log(newdata);
+      })
+
+      //刪除帳號
+      Udelete.addEventListener("click", () => {//點擊觸發Udelete
+        var DRef = db.ref("user/" + user.uid); //資料庫路徑，user.uid為Auth裡面的uid
+        DRef.remove()//remove就是刪除他!
+        user.delete().then(function () {//刪除Auth裡的使用者user
+          console.log("User deleted.");
+          window.location = "select_login.html";//刪除後跳轉出去
+        }).catch(function (error) {
+          console.log("An error happened.");
+        });
+      })
+
+      //顯示
+      var URef = db.ref("user/" + user.uid);//資料庫路徑，user.uid為Auth裡面的uid
+      URef.on("value", function (snapshot) {
+        //on為隨時監聽資料庫變化
+        //設snapshot為一個參數，用來接收資料庫取出來的值
+        var content = '';
+        if (snapshot.exists()) {
+          let userData = snapshot.val()//要取得裡面的值可以使用 val() 方法
+          email.innerHTML = userData.email;//顯示資料庫email的值在id為email的地方
+
+          //姓名顯示
+          content += '<div class="card" style="margin-top: 20px;">';
+          content += '<table>';
+          content += '<tr>';
+          content += '<td style="text-align: right; width: 35%;padding-right: 30px">';
+          content += '<i class="fas fa-user fa-3x" style="color: #617a84;"></i>';
+          content += '</td>';
+          content += '<td style="text-align: left;">';
+          content += '<h3>姓名</h3>';
+          content += '<input type="text" id="username" value="' + userData.username + '">';
+          content += '</td>';
+          content += '</tr>';
+          //電話號碼顯示
+          content += '<tr style="background-color: rgba(194, 204, 218, 0);">';
+          content += '<td style="text-align: right; width: 35%;padding-right: 30px">';
+          content += '<i class="fas fa-phone-alt fa-3x" style="color: #617a84;"></i>';
+          content += '</td>';
+          content += '<td style="text-align: left;">';
+          content += '<h3>電話號碼</h3>';
+          content += '<input type="tel" id="phone" value="' + userData.phone + '">';
+          content += '</td>';
+          content += '</tr>';
+          //生日顯示
+          content += '<tr>';
+          content += '<td style="text-align: right; width: 35%;padding-right: 30px">';
+          content += '<i class="fas fa-birthday-cake fa-3x" style="color: #617a84;"></i>';
+          content += '</td>';
+          content += '<td style="text-align: left;">';
+          content += '<h3>生日</h3>';
+          content += '<input type="date" id="birthdate" value="' + userData.birthdate + '">';
+          content += '</td>';
+          content += '</tr>';
+          content += '</table>';
+          content += '</div>';
+
+          $('#userinfo').empty();//先empty以免重複append
+          $('#userinfo').append(content);//將content的值顯示在id為useinfo的地方
+        }
+        else {
+          console.log("未登入");
+        }
+      });
+    });
+  </script>
+
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/js/jquery.scrollex.min.js"></script>
+  <script src="/assets/js/jquery.scrollex.min.js"></script>
+  <script src="/assets/js/browser.min.js"></script>
+  <script src="/assets/js/util.js"></script>
+</body>
+
+</html>

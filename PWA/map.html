@@ -1,0 +1,591 @@
+<html>
+  <head>
+    <title>Venology</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+      integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+      crossorigin="anonymous"
+    />
+
+    <link rel="manifest" href="manifest.json" />
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-storage.js"></script>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+      #map {
+        width: 100%;
+        height: 500px;
+        background-color: grey;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+      h2 {
+        font-family: 微軟正黑體;
+        color: #617a84;
+      }
+
+      h3 {
+        font-family: 微軟正黑體;
+        color: #617a84;
+        font-size: medium;
+        font-weight: 600;
+      }
+
+      h4 {
+        font-family: 微軟正黑體;
+        font-weight: 700;
+        font-size: large;
+      }
+
+      h5 {
+        font-family: 微軟正黑體;
+        font-weight: 600;
+        font-size: 16px;
+      }
+
+      p {
+        font-size: 14px;
+        font-weight: 1000;
+        font-family: 微軟正黑體;
+      }
+
+      td {
+        vertical-align: middle;
+      }
+
+      hr.style-one {
+        border: 0;
+        height: 2px;
+        background-image: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 0),
+          rgb(194, 211, 218),
+          rgba(0, 0, 0, 0)
+        );
+      }
+
+      #check {
+        font-family: 微軟正黑體;
+        color: #fff;
+        font-size: 13px;
+        background-color: #85a8b4c7;
+      }
+
+      .card {
+        /* Add shadows to create the "card" effect */
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        font-family: 微軟正黑體;
+        color: #617a84;
+        text-align: left;
+      }
+
+      /* On mouse-over, add a deeper shadow */
+      .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      input[type="checkbox"] {
+        position: relative;
+        cursor: pointer;
+      }
+
+      input[type="checkbox"]:before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: 0;
+        left: 0;
+        border: 2px solid #555555;
+        border-radius: 3px;
+        background-color: white;
+      }
+
+      input[type="checkbox"]:checked:after {
+        content: "";
+        display: block;
+        width: 5px;
+        height: 10px;
+        border: solid black;
+        border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+        position: absolute;
+        top: 2px;
+        left: 6px;
+      }
+
+      .resize {
+        width: auto;
+        width: 100px;
+      }
+
+      .resize {
+        height: auto;
+        height: 100px;
+      }
+
+      .tg .tg-cly1 {
+        text-align: left;
+        vertical-align: middle;
+      }
+
+      .tg .tg-cly2 {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .onoffswitch {
+      position: relative;
+      width: 71px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+
+    .onoffswitch-checkbox {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .onoffswitch-label {
+      display: block;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid #999999;
+      border-radius: 17px;
+    }
+
+    .onoffswitch-inner {
+      display: block;
+      width: 200%;
+      margin-left: -100%;
+      transition: margin 0.3s ease-in 0s;
+    }
+
+    .onoffswitch-inner:before,
+    .onoffswitch-inner:after {
+      display: block;
+      float: left;
+      width: 50%;
+      height: 22px;
+      padding: 0;
+      line-height: 22px;
+      font-size: 12px;
+      color: white;
+      font-family: Trebuchet, Arial, sans-serif;
+      font-weight: bold;
+      box-sizing: border-box;
+    }
+
+    .onoffswitch-inner:before {
+      content: "ON";
+      padding-left: 7px;
+      background-color: #7cc4d6;
+      color: #ffffff;
+    }
+
+    .onoffswitch-inner:after {
+      content: "OFF";
+      padding-right: 7px;
+      background-color: #eeeeee;
+      color: #999999;
+      text-align: right;
+    }
+
+    .onoffswitch-switch {
+      display: block;
+      width: 14px;
+      margin: 4px;
+      background: #ffffff;
+      position: absolute;
+      top: 4;
+      bottom: 0;
+      right: 45px;
+      border: 2px solid #999999;
+      border-radius: 17px;
+      transition: all 0.3s ease-in 0s;
+    }
+
+    .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+      margin-left: 0;
+    }
+
+    .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+      right: 0px;
+    }
+
+      button {
+        font-family: 微軟正黑體;
+        border: 0;
+        background: none;
+        display: block;
+        margin: 25px auto;
+        text-align: center;
+        border: 2px solid none;
+        padding: 10px 40px;
+        outline: none;
+        color: #f1f3f2;
+        border-radius: 30px;
+        transition: 0.25s;
+        cursor: pointer;
+        background: #617a84;
+      }
+    </style>
+  </head>
+
+  <body>
+    
+    <!-- Header -->
+    <div id="header">
+      <div class="top">
+        <!-- Logo -->
+        <div id="logo">
+          <span class="image"
+            ><img src="images/userpic.png" style="width: 65px;"
+          /></span>
+          <h1 id="title"></h1>
+          <p id="userpp"></p>
+        </div>
+
+        <!-- Nav -->
+        <script type="text/javascript" src="/assets/js/nav.js"></script>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div id="main">
+      <section id="contact">
+        <header>
+          <h2>MAP</h2>
+        </header>
+
+        <!--The div element for the map -->
+
+        <div class="container">
+          <!--地圖-->
+          <div id="map"></div>
+          <br />
+          <sction>
+            <!--販賣機資訊-->
+            <div id="vens"></div>
+            <!--商品資訊-->
+            <div id="details"></div>
+          </sction>
+        </div>
+      </section>
+    </div>
+
+    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+
+    <script type="text/javascript">
+      //抓取button的value值，因為裡面的迴圈會顯示VM1、VM2....
+      //再設定變數給VM1、VM2，放入資料庫路徑中，抓取指定的販賣機商品
+      function VM(VV) {
+        var VM = VV.id;
+        console.log("id=" + VV.id);
+
+        var db = firebase.database(); //連結資料庫
+        //產品
+        var PRef = db.ref("VM_P/" + VM + "/商品資訊/"); //連結資料庫路徑
+        PRef.on("value", function (snapshot) {
+          //當firebase資料有異動時，on會即時回傳更新資料
+          //設snapshot為一個參數，用來接收資料庫取出來的值
+          if (snapshot.exists()) {
+            //如果有資料存在
+            var content = "";
+            snapshot.forEach(function (data) {
+              //foreach為依序撈出資料
+              var val = data.val(); //要取得裡面的值可以使用 val() 方法
+              content += '<div class="card">';
+              content += '<table class = "tg">';
+              content += "<tr>";
+              content +=
+                '<td class="tg-cly2" rowspan = "3">' +
+                '<img src="' +
+                val.img +
+                '" class = "resize"></img>' +
+                "</td>";
+              content += '<td class="tg-cly1" rowspan = "4">';
+              content += "<p>庫存：" + val.stock + "</p>";
+              content += "<p>價錢：" + val.cost + "</p>";
+              content += "<p>容量：" + val.ml + "</p>";
+              content += "</td>";
+              content += "</tr>";
+              content += "<tr></tr>";
+              content += "<tr></tr>";
+              content += "<tr>";
+              content += '<td class="tg-cly2"><h3>' + val.name + "</h3></td>";
+              content += "</tr>";
+              content += "</table>";
+              content += "</div>";
+            });
+            $("#details").empty(); //先empty以免重複append
+            $("#details").append(content); //顯示在id = details的div裡面;
+          }
+        });
+        //販賣機資訊
+        var VRef = db.ref("VM_P/" + VM + "/販賣機資訊/"); //連結資料庫路徑
+        VRef.on("value", function (snapshot2) {
+          //當firebase資料有異動時，on會即時回傳更新資料
+          //設snapshot為一個參數，用來接收資料庫取出來的值
+          if (snapshot2.exists()) {
+            console.log(snapshot2);
+            var content2 = "";//設定一個變數
+            var val2 = snapshot2.val(); //要取得裡面的值可以使用 val() 方法
+            content2 += '<div class="card">';//將字串賦予變數中
+            content2 += '<table style="width:100%;"><tr>';
+            content2 += "<td><h4>" + val2.name + "</h4></td>";
+            content2 += '<td width="20%">';
+            content2 += '<div class="onoffswitch">';
+            content2 +=
+              '<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" checked />';
+            content2 += '<label class="onoffswitch-label" for="myonoffswitch">';
+            content2 += '<span class="onoffswitch-inner"></span>';
+            content2 += '<span class="onoffswitch-switch"></span>';
+            content2 += "</label></div></td>";
+            content2 += "</tr>";
+            content2 += "<tr>";
+            content2 += '<td colspan="2">';
+            content2 += "<h5>" + val2.location + "</h5></td>";
+            content2 += "</tr>";
+            content2 += "</table>";
+            content2 += "</div>";
+            content2 += "<br>";
+
+            $("#vens").empty(); //先empty以免重複append
+            $("#vens").append(content2); //顯示在id = vens的div裡面;
+          }
+        });
+      }
+
+      //地圖
+      function initialize() {
+        //初始化map,指定要將回傳的地圖圖檔輸出至id為map的div中
+        var map = new google.maps.Map(document.getElementById("map"), {
+          //預設層級
+          zoom: 15,
+          //中心點
+          center: {
+            lat: 25.033711,
+            lng: 121.433476,
+          },
+          // 設定是否呈現右下角街景小人
+          streetViewControl: false,
+          // 設定是否讓使用者可以切換地圖樣式：一般、衛星圖等
+          mapTypeControl: false,
+        });
+
+        addMarkerInfo();
+
+        window.onload = function () {
+          initialize();
+        };
+
+        //InforObj：將具有InfoWindow對象，該對象將用於在單擊或懸停時關閉其他信息。
+        var InforObj = []; // Create an array of alphabetical characters used to label the markers.
+
+        //販賣機內的視窗內容
+        function addMarkerInfo() {
+          for (var i = 0; i < markerVen.length; i++) {
+            //用迴圈讀取下方MarkerVen陣列中的資訊
+            //設定變數以顯示在下方infowindow
+            var contentString =
+              "<h4>" +
+              markerVen[i].name +
+              "</h4>" +
+              "<h5>" +
+              markerVen[i].detail +
+              "<br>" +
+              '<button style="display:inline;" id="VM' +
+              [i + 1] +
+              '" onclick="VM(this)">' +
+              "查看商品" +
+              "</button>&nbsp;" +
+              '&nbsp;<span id="VM' +
+              [i + 1] +
+              '" onclick="road(this)">' +
+              '<i class="fas fa-location-arrow"></i>' +
+              "</span>" +
+              "</h5>";
+            //const,一般使用在識別值(identifier)不會被重新指定值,在一開始就給予值作宣告
+            //設定Marker屬性
+            const marker = new google.maps.Marker({
+              position: markerVen[i].LatLng[0], //迴圈抓markerVen的經緯度
+              icon: "/images/ven_icon.png",
+              map: map, //map代表Marker須加掛在哪個地圖
+              animation: google.maps.Animation.DROP,
+            });
+
+            //Info windows 是在我們點選 maker 的時候會彈出來的資訊視窗，透過 new google.maps.InfoWindow 可以建立新的資訊視窗
+            const infowindow = new google.maps.InfoWindow({
+              content: contentString,
+            });
+
+            //透過 click,開啟infowindow
+            //把marker物件加入監聽點擊(click)的行為並且在聽到點擊的時候使用callback去呼叫 info window做open的方法。
+            marker.addListener("click", function () {
+              closeOtherInfo();
+              //開啟資訊視窗，內容包含一個必填參數「map」和一個選填參數「位置」,
+              //位置的話可以指定放在哪個地圖標記 marker，或是直接由經緯度指定位置。
+              infowindow.open(map, marker); //open的方法參數為我們顯示的地圖物件(map)與marker物件(marker)。
+              InforObj[0] = infowindow;
+              //console.log(InforObj[0]);
+            });
+          }
+        }
+
+        //當點擊另一個marker時,原本的marker視窗會自動關掉
+        function closeOtherInfo() {
+          if (InforObj.length > 0) {//InforObj的陣列裡如果有東西
+            // detach the info-window from the marker ... undocumented in the API docs
+            InforObj[0].set("marker", null);//刪除陣列裡面[0]位置的值
+            // and close it
+            InforObj[0].close();
+            // blank the array
+            InforObj.length = 0;//清空陣列
+          }
+        }
+
+         //定位,if來判斷是否有支援geolocation api
+         if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              //如果有支援,用getCurrentPosition方法用來獲取設備當前的位置
+              //命一個變數local，來存取該位置的經緯度
+              var local = {
+                lat: position.coords.latitude, //十進位數的緯度
+                lng: position.coords.longitude, //十進位數的經度
+              };
+              console.log(local.lat, local.lng);
+
+
+              //設定彈跳視窗
+              // infoWindow.setPosition(local);
+
+              // infoWindow.setContent("你現在所在位置");
+              // infoWindow.open(map);
+              map.setCenter(local); //設定地圖中心點
+              var marker = new google.maps.Marker({
+                position: {
+                  lat: local.lat,
+                  lng: local.lng,
+                },
+                map: map,
+              });
+
+              // function road(RR) {
+              //   var RD = RR.id;
+              //   console.log("id=" + RD);
+              //   var db = firebase.database(); //連結資料庫
+              //   var RRef = db.ref("VM_P/" + RD + "/販賣機資訊/"); //連結資料庫路徑
+              //   RRef.on("value", function (snapshot) {
+              //     //當firebase資料有異動時，on會即時回傳更新資料
+              //     //設snapshot為一個參數，用來接收資料庫取出來的值
+              //     if (snapshot.exists()) {
+              //       //如果有資料存在
+              //       var val = snapshot.val(); //要取得裡面的值可以使用 val() 方法
+              //       var lat = val.lat;
+              //       var lng = val.lng;
+              //       console.log(lat);
+              //     }
+              //   });
+              // }
+            },
+            function () {
+              handleLocationError(true, infoWindow, map.getCenter());
+            }
+          );
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      // 定義了一個 function handleLocationError,塞了三個參數：判斷瀏覽器是否支援 Geolocation、資訊視窗、local 經緯度
+      // 設定了如果 browserHasGeolocation 得到的結果是 false,就會有 'Error: The Geolocation service failed.'的訊息
+      function handleLocationError(browserHasGeolocation, infoWindow, local) {
+        infoWindow.setPosition(local);
+        infoWindow.setContent(
+          browserHasGeolocation
+            ? "Error: The Geolocation service failed."
+            : "Error: Your browser doesn't support geolocation."
+        );
+        infoWindow.open(map);
+      }
+
+      var markerVen = [
+        
+        {
+          name: "輔仁一",
+          LatLng: [
+            {
+              lat: 25.0334487,
+              lng: 121.4312869,
+            },
+          ],
+          detail: "242台灣新北市新莊區中正路514巷53弄11號",
+        },
+        {
+          name: "輔仁二",
+          LatLng: [
+            {
+              lat: 25.035655,
+              lng: 121.431581,
+            },
+          ],
+          detail: "242台灣新北市新莊區營盤里",
+        },
+        {
+          name: "輔仁三",
+          LatLng: [
+            {
+              lat: 25.032194,
+              lng: 121.432117,
+            },
+          ],
+          detail: "242台灣新北市新莊區中正路514巷33弄15號",
+        },
+        {
+          name: "輔仁四",
+          LatLng: [
+            {
+              lat: 25.033337,
+              lng: 121.436019,
+            },
+          ],
+          detail: "242台灣新北市新莊區中正路508巷2號",
+        },
+      ];
+    </script>
+    <!---The async attribute allows the browser to render the page while the API loads--->
+
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBaYUQH0H7y-8ShDxodCjMQzuUik0NgMM&callback=initialize"
+    ></script>
+
+    <script type="text/javascript" src="/assets/js/script.js"></script>
+  </body>
+</html>

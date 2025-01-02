@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <title>Venology</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-auth.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+
+    <style>
+        h2 {
+            font-family: 微軟正黑體;
+            color: #617a84;
+        }
+
+        p {
+            font-family: 微軟正黑體;
+            font-size: 14px;
+            color: rgba(97, 122, 132, 0.8);
+        }
+
+        #box input[type="submit"] {
+            font-family: 微軟正黑體;
+            border: 0;
+            background: none;
+            display: block;
+            margin: 0px auto;
+            text-align: center;
+            font-size: 16px;
+            border: 2px solid none;
+            padding: 10px 40px;
+            outline: none;
+            color: #f1f3f2;
+            border-radius: 30px;
+            transition: 0.25s;
+            cursor: pointer;
+            background: rgb(97, 122, 132, 0.6);
+
+        }
+
+        .btn {
+            font-family: 微軟正黑體;
+            border: 0;
+            background: none;
+            display: block;
+            margin: 0px auto;
+            text-align: center;
+            font-size: 15px;
+            border: 2px solid none;
+            padding: 8px 20px;
+            outline: none;
+            color: #f1f3f2;
+            border-radius: 30px;
+            transition: 0.25s;
+            cursor: pointer;
+            background: rgb(97, 122, 132, 0.6);
+        }
+
+        td {
+            font-family: 微軟正黑體;
+            font-weight: 600;
+        }
+    </style>
+
+</head>
+
+
+<body class="is-preload">
+
+    <!-- Header -->
+    <div>
+        <div id="header">
+            <div class="top">
+
+                <!-- Logo -->
+                <div id="logo">
+                    <span class="image"><img src="images/userpic.png" style="width: 65px" /></span>
+                    <h1 id="title"></h1>
+                    <p id="userpp"></p>
+                </div>
+
+                <!-- Nav -->
+                <script type="text/javascript" src="/assets/js/nav.js"></script>
+
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div id="main">
+            <!-- Contact -->
+            <section id="contact">
+                <div class="container"></div>
+                <header>
+                    <h2>邀請朋友</h2>
+                    <p>只要分享專屬邀請碼，就有機會獲得50點數</p>
+                </header>
+
+
+                <div class="row">
+
+
+                    <div class="col-12">
+                        <span style="color:#617a84;font-size: 20px;font-family: 微軟正黑體;font-weight: 600;">您的專屬邀請碼</span>
+                        <div style="border-width:2px;border-style:dashed;border-color:#cccccc;padding:10px">
+                            <h4 style="font-size: 15px;font-family: 微軟正黑體;font-weight: 600;text-align: center;">
+                                https://google.com/im.fju.edu.tw/venology/kiwa
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12" id="box"><br>
+                    <input type="submit" value="分 享" />
+                </div>
+
+
+                <table width="200">
+                    　<tr>
+                        　<td style="text-align: center;">成功邀請的朋友</td>
+                        　<td style="text-align: center;">獲得的點數</td>
+                        　</tr>
+                    　<tr>
+                        　<td style="text-align: center;">0</td>
+                        　<td style="text-align: center;">0</td>
+                    </tr>
+                </table>
+        </div>
+
+    </div>
+    </div>
+    </section>
+    </div>
+    </div>
+    <script type="text/javascript" src="/assets/js/script.js"></script>
+</body>
+
+</html>

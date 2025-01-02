@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Venology</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
+
+  <link rel="manifest" href="manifest.json" />
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-analytics.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+
+  <style>
+    h2 {
+      font-family: 微軟正黑體;
+      color: #617a84;
+
+    }
+
+    h3 {
+      font-family: 微軟正黑體;
+      color: #617a84;
+      font-size: 25px;
+      font-weight: 600;
+    }
+
+    h4 {
+      font-family: 微軟正黑體;
+      color: #617a84;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    h5 {
+      font-family: 微軟正黑體;
+      color: #000000;
+      font-size: 12px;
+    }
+
+    .card {
+      /* Add shadows to create the "card" effect */
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      transition: 0.3s;
+      font-family: 微軟正黑體;
+      color: #617a84;
+      text-align: left;
+    }
+
+    /* On mouse-over, add a deeper shadow */
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    /* Add some padding inside the card container */
+    .advertise {
+      padding: 8px 16px;
+    }
+  </style>
+</head>
+
+<body class="is-preload">
+  <!-- Header -->
+  <div id="header">
+    <div class="top">
+      <!-- Logo -->
+      <div id="logo">
+        <span class="image"><img src="images/userpic.png" style="width: 65px" /></span>
+        <h1 id="title"></h1>
+        <p id="userpp"></p>
+      </div>
+
+      <!-- Nav -->
+      <script type="text/javascript" src="/assets/js/nav.js"></script>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div id="main">
+    <!-- Contact -->
+    <section id="contact" class="four">
+      <div class="container">
+        <header>
+          <h2>News</h2>
+        </header>
+
+        <section id="news" style="width: 100%;"></section>
+
+        <script>
+          var db = firebase.database();//連結database
+          var ARef = db.ref("news/");//設定連結database的路徑
+          ARef.once("value", function (snapshot) {
+            //once取得最新資料
+            //設snapshot為一個參數，用來接收資料庫取出來的值
+            if (snapshot.exists()) {
+              var content = "";
+              snapshot.forEach(function (data) {//foreach為依序撈出資料,將資料存入data
+                var val = data.val();//要取得裡面的值可以使用 val() 方法
+
+                content += '<div class="card">';
+                content +=
+                  '<img src="' +
+                  val.img +
+                  '" alt="Avatar" style="width:100%"></img>';
+                content += '<div class="news">';
+                content +=
+                  '<h3 style="display:inline;">&nbsp;' + val.name + "</h3>";
+                content += "&nbsp;&nbsp;";
+                content +=
+                  '<h4 style="display:inline;">' + val.news + "</h4>";
+                content += "<br><br>";
+                content += "<h5>&nbsp;&nbsp;" + val.time + "</h5>";
+                content +=
+                  '&nbsp;&nbsp;<a style="font-size: 13px; font-weight: 500; color: rgba(105, 35, 7, 0.89); font-family: 微軟正黑體;" href="' + val.url + '">活動規則>>></a>';
+                content += "<br><br>";
+                content += "</div>";
+                content += "</div>";
+                content += "<br>";
+              });
+              $("#news").append(content);//顯示在id為news的selction裡面
+            }
+          });
+        </script>
+      </div>
+    </section>
+  </div>
+
+  <!-- Scripts -->
+  <script type="text/javascript" src="/assets/js/script.js"></script>
+</body>
+
+</html>

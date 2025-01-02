@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<!--
+ Prologue by HTML5 UP
+ html5up.net | @ajlkn
+ Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Venology</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/twicon.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+  <link rel="manifest" href="manifest.json" />
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-storage.js"></script>
+
+  <style>
+    h2 {
+      font-family: 微軟正黑體;
+      color: #617a84;
+    }
+
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      transition: 0.3s;
+      width: 100%;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    h3 {
+      font-family: 微軟正黑體;
+      font-weight: 700;
+      font-size: medium;
+      color: #617a84;
+    }
+
+    h4 {
+      font-family: 微軟正黑體;
+      font-size: 15px;
+    }
+
+    p {
+      font-family: 微軟正黑體;
+    }
+
+    button {
+      border: 0;
+      background: none;
+      display: block;
+      margin: 25px auto;
+      text-align: center;
+      border: 2px solid none;
+      padding: 10px 40px;
+      outline: none;
+      color: #f1f3f2;
+      border-radius: 30px;
+      transition: 0.25s;
+      cursor: pointer;
+      background: rgb(97, 122, 132, 0.6);
+    }
+
+    #tabs-nav {
+      margin: 0;
+      padding: 0;
+      position: relative;
+      text-align: center;
+    }
+
+    a.tabs-menu {
+      display: inline-block;
+      background-color: #617a84ce;
+      font-size: 14px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #fff;
+      padding: 5px 20px;
+      text-shadow: 1px 1px 0px #617a849a;
+      font-weight: bold;
+      text-decoration: none;
+      border: solid 1px #617a84;
+      border-bottom: 0;
+      border-radius: 3px 3px 0 0;
+      font-family: 微軟正黑體;
+    }
+
+    a.tabs-menu.tabs-menu-active {
+      background-color: #fff;
+      text-shadow: 1px 1px 0px #ffffff;
+      border: solid 1px #617a849a;
+      color: #6b6b6b;
+      border-bottom: 0;
+      font-size: 14px;
+      font-family: 微軟正黑體;
+    }
+
+    .tabs-container {
+      border: solid 1px #617a84;
+      margin-top: -1px;
+      background-color: #fff;
+      overflow: hidden;
+    }
+
+    .tabs-panel {
+      display: none;
+      min-height: 150px;
+      overflow: auto;
+      padding: 10px;
+      max-height: 500px;
+    }
+  </style>
+</head>
+
+<body class="is-preload">
+  <!-- Header -->
+  <div id="header">
+    <div class="top">
+      <!-- Logo -->
+      <div id="logo">
+        <span class="image"><img src="images/userpic.png" style="width: 65px" /></span>
+        <h1 id="title"></h1>
+        <p id="userpp"></p>
+      </div>
+
+      <!-- Nav -->
+      <script type="text/javascript" src="/assets/js/nav.js"></script>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div id="main">
+    <div style="height: 0px;">
+      <a href="members.html" style="text-decoration: none;">
+        <i id="arrow" class="fas fa-arrow-left" style="font-size: 30px; margin-top: 10px; margin-left: 10px;"></i></a>
+    </div>
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <header>
+          <h2>Payment</h2>
+        </header>
+        <section id="payment" style="width: 100%;">
+          <div id="jquery-tabs" style="width: auto;">
+            <div id="tabs-nav">
+              <a href="#tab0" class="tabs-menu tabs-menu-active">悠遊卡</a>
+              <a href="#tab1" class="tabs-menu">購物金</a>
+            </div>
+
+            <div class="tabs-container">
+              <div id="tab0" class="tabs-panel" style="display: block;">
+                <br />
+                <div class="card">
+                  <table>
+                    <tr>
+                      <td rowspan="2" style="
+                            text-align: center;
+                            vertical-align: middle;
+                            width: 20%;
+                          ">
+                        <i class="twicon-l-easy-card fa-4x" style="color: rgb(0, 158, 111);"></i>
+                      </td>
+                      <td>
+                        <h3>悠遊卡 一</h3>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <h4>689 253247 5</h4>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="card">
+                  <table>
+                    <tr>
+                      <td rowspan="2" style="
+                            text-align: center;
+                            vertical-align: middle;
+                            width: 20%;
+                          ">
+                        <i class="twicon-l-easy-card fa-4x" style="color: rgb(0, 158, 111);"></i>
+                      </td>
+                      <td>
+                        <h3>悠遊卡 二</h3>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <h4>785 653256 9</h4>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="card">
+                  <table>
+                    <tr>
+                      <td rowspan="2" style="
+                            text-align: center;
+                            vertical-align: middle;
+                            width: 20%;
+                          ">
+                        <i class="twicon-l-easy-card fa-4x" style="color: rgb(0, 158, 111);"></i>
+                      </td>
+                      <td>
+                        <h3>悠遊卡 三</h3>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <h4>684 172545 8</h4>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+              <div id="tab1" class="tabs-panel">
+                <br />
+                <table>
+                  <tr>
+                    <td style="
+                          width: 60%;
+                          text-align: right;
+                          vertical-align: middle;
+                        ">
+                      <h3>輸入購物金金額：</h3>
+                    </td>
+                    <td style="width: 40%;">
+                      <form>
+                        <input style="width: 80%;" type="text" name="欄位名稱" />
+                      </form>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <button type="button" style="font-family: 微軟正黑體; font-size: 15px;">
+                        確 認
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h3>您的購物金：500</h3>
+                    </td>
+                    <td>
+                      <button type="button" style="
+                            font-family: 微軟正黑體;
+                            font-size: 15px;
+                            width: 150px;
+                          ">
+                        線上儲值
+                      </button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    $(function () {
+      $("#tabs-nav a").click(function () {
+        $("#tabs-nav a").removeClass("tabs-menu-active");
+        $(this).addClass("tabs-menu-active");
+        $(".tabs-panel").hide();
+        var tab_id = $(this).attr("href");
+        $(tab_id).fadeIn();
+        return false;
+      });
+    });
+  </script>
+</body>
+
+</html>

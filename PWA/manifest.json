@@ -1,0 +1,19 @@
+{
+  "name": "Venology",
+  "short_name": "Venology",
+  "icons": [{
+    "src": "images/WeVen.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
+    "src": "images/WeVen2.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }],
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#83B1C9",
+  "theme_color": "#beced2"
+}
